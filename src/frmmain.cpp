@@ -783,7 +783,7 @@ void frmMain::sendCommand(QString command, int tableIndex, bool showInConsole)
     }
 
     // Set M2 & M30 commands sent flag
-    if (command.contains(QRegExp("M0*2|M30"))) {
+    if (GcodePreprocessorUtils::removeComment(command).contains(QRegExp("M0*2|M30"))) {
         m_fileEndSent = true;
     }
 
@@ -1162,13 +1162,13 @@ void frmMain::onSerialPortReadyRead()
                     }
 
                     // Clear command buffer on "M2" & "M30" command (old firmwares)
-                    if ((ca.command.contains("M2") || ca.command.contains("M30")) && response.contains("ok") && !response.contains("[Pgm End]")) {
+                    if ((GcodePreprocessorUtils::removeComment(ca.command).contains("M2") || GcodePreprocessorUtils::removeComment(ca.command).contains("M30")) && response.contains("ok") && !response.contains("[Pgm End]")) {
                         m_commands.clear();
                         m_queue.clear();
                     }
 
                     // Process probing on heightmap mode only from table commands
-                    if (ca.command.contains("G38.2") && m_heightMapMode && ca.tableIndex > -1) {
+                    if (GcodePreprocessorUtils::removeComment(ca.command).contains("G38.2") && m_heightMapMode && ca.tableIndex > -1) {
                         // Get probe Z coordinate
                         // "[PRB:0.000,0.000,0.000:0];ok"
                         QRegExp rx(".*PRB:([^,]*),([^,]*),([^]^:]*)");
@@ -1201,7 +1201,7 @@ void frmMain::onSerialPortReadyRead()
                     }
 
                     // Change state query time on check mode on
-                    if (ca.command.contains(QRegExp("$[cC]"))) {
+                    if (GcodePreprocessorUtils::removeComment(ca.command).contains(QRegExp("$[cC]"))) {
                         m_timerStateQuery.setInterval(response.contains("Enable") ? 1000 : m_settings->queryStateTime());
                     }
 
@@ -1285,13 +1285,13 @@ void frmMain::onSerialPortReadyRead()
 
                         // Check transfer complete (last row always blank, last command row = rowcount - 2)
                         if (m_fileProcessedCommandIndex == m_currentModel->rowCount() - 2
-                                || ca.command.contains(QRegExp("M0*2|M30"))) m_transferCompleted = true;
+                                || GcodePreprocessorUtils::removeComment(ca.command).contains(QRegExp("M0*2|M30"))) m_transferCompleted = true;
                         // Send next program commands
                         else if (!m_fileEndSent && (m_fileCommandIndex < m_currentModel->rowCount()) && !holding) sendNextFileCommands();
                     }
 
                     // Scroll to first line on "M30" command
-                    if (ca.command.contains("M30")) ui->tblProgram->setCurrentIndex(m_currentModel->index(0, 1));
+                    if (GcodePreprocessorUtils::removeComment(ca.command).contains("M30")) ui->tblProgram->setCurrentIndex(m_currentModel->index(0, 1));
 
                     // Toolpath shadowing on check mode
                     if (m_statusCaptions.indexOf(ui->txtStatus->text()) == CHECK) {
@@ -2023,7 +2023,7 @@ void frmMain::sendNextFileCommands() {
 
     while ((bufferLength() + command.length() + 1) <= BUFFERLENGTH
            && m_fileCommandIndex < m_currentModel->rowCount() - 1
-           && !(!m_commands.isEmpty() && m_commands.last().command.contains(QRegExp("M0*2|M30")))) {
+           && !(!m_commands.isEmpty() && GcodePreprocessorUtils::removeComment(m_commands.last().command).contains(QRegExp("M0*2|M30")))) {
         m_currentModel->setData(m_currentModel->index(m_fileCommandIndex, 2), GCodeItem::Sent);
         sendCommand(command, m_fileCommandIndex, m_settings->showProgramCommands());
         m_fileCommandIndex++;

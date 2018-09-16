@@ -27,9 +27,9 @@ contains(QT_CONFIG, opengles.) {
     target.path = /home/pi
 }
 
-TARGET = Candle
+TARGET = zCandle
 TEMPLATE = app
-VERSION = 1.1.8
+VERSION = 1.1.8.1
 RC_ICONS += images/candle.ico
 
 DEFINES += sNan=\"65536\"
