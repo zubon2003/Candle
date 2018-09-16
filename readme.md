@@ -10,7 +10,7 @@ Supported functions:
 
 Downloads:
 ----------
-* Windows: [candle_1.0.8.1.zip](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle%201.1.8.1-win32.zip)
+* Windows: [candle_1.1.8.1.zip](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle%201.1.8.1-win32.zip)
 
 Build requirements:
 ------------------
