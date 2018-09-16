@@ -8,21 +8,9 @@ Supported functions:
 * Loading, editing, saving and sending of G-code files to cnc-machine.
 * Visualizing G-code files.
 
-Version 1.0 pre-release:
---------------------
-
-* Added "Grayscale segments"-option and "Raster"-mode to visualize laser jobs.
-* Added "User commands"-panel.
-* Significantly improved performance of:
- * File loading.
- * G-code program modification by heightmap.
- * "Autoscroll"-feature.
-* Programs with about 5 million lines can be loaded now.
-
 Downloads:
 ----------
-* Windows: [candle_1.0.6.zip](https://github.com/Denvi/Candle/releases/download/v1.0/Candle_1.0.6.zip)
-* Linux: [candle_1.0.6.tar.gz](https://github.com/Denvi/Candle/releases/download/v1.0/Candle_1.0.6.tar.gz)
+* Windows: [candle_1.0.8.1.zip](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle%201.1.8.1-win32.zip)
 
 Build requirements:
 ------------------
