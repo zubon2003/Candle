@@ -2836,13 +2836,55 @@ bool frmMain::eventFilter(QObject *obj, QEvent *event)
                     ui->slbSpindle->setSliderPosition(ui->slbSpindle->sliderPosition() - 1);
                 }
             }
+			if (m_processingFile) {
 
+                if (keyEvent->key() == Qt::Key_F1) {
+                        ui->slbFeedOverride->setSliderPosition(ui->slbFeedOverride->sliderPosition() - 10);
+                    }
+
+                if (keyEvent->key() == Qt::Key_F2) {
+                        ui->slbFeedOverride->setSliderPosition(ui->slbFeedOverride->sliderPosition() - 1);
+                    }
+
+                if (keyEvent->key() == Qt::Key_F3) {
+                        ui->slbFeedOverride->setSliderPosition(ui->slbFeedOverride->sliderPosition() + 1);
+                    }
+
+                if (keyEvent->key() == Qt::Key_F4) {
+                        ui->slbFeedOverride->setSliderPosition(ui->slbFeedOverride->sliderPosition() + 10);
+                    }
+
+                if (keyEvent->key() == Qt::Key_F6) {
+                        ui->slbRapidOverride->setSliderPosition(ui->slbRapidOverride->sliderPosition() - 1);
+                    }
+
+                if (keyEvent->key() == Qt::Key_F7) {
+                        ui->slbRapidOverride->setSliderPosition(ui->slbRapidOverride->sliderPosition() + 1);
+                    }
+
+                if (keyEvent->key() == Qt::Key_F9) {
+                        ui->slbSpindleOverride->setSliderPosition(ui->slbSpindleOverride->sliderPosition() - 10);
+                    }
+
+                if (keyEvent->key() == Qt::Key_F10) {
+                        ui->slbSpindleOverride->setSliderPosition(ui->slbSpindleOverride->sliderPosition() - 1);
+                    }
+
+                if (keyEvent->key() == Qt::Key_F11) {
+                        ui->slbSpindleOverride->setSliderPosition(ui->slbSpindleOverride->sliderPosition() + 1);
+                    }
+
+                if (keyEvent->key() == Qt::Key_F12) {
+                        ui->slbSpindleOverride->setSliderPosition(ui->slbSpindleOverride->sliderPosition() + 10);
+                    }
+			}
             if (obj == ui->tblProgram && m_processingFile) {
                 if (keyEvent->key() == Qt::Key_PageDown || keyEvent->key() == Qt::Key_PageUp
                             || keyEvent->key() == Qt::Key_Down || keyEvent->key() == Qt::Key_Up) {
                     ui->chkAutoScroll->setChecked(false);
                 }
             }
+			
         }
 
     // Splitter events
