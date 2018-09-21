@@ -1836,6 +1836,7 @@ void frmMain::on_cmdFit_clicked()
     ui->glwVisualizer->fitDrawable(m_currentDrawer);
 }
 
+//ここがsendボタンを押したときの処理
 void frmMain::on_cmdFileSend_clicked()
 {
     if (m_currentModel->rowCount() == 1) return;
@@ -2021,6 +2022,7 @@ void frmMain::sendNextFileCommands() {
 
     QString command = feedOverride(m_currentModel->data(m_currentModel->index(m_fileCommandIndex, 1)).toString());
 
+    //BUFFERLENGTH = 127(GRBLのバッファ 固定） bufferlength(CANDLE側で把握している、GRBLのバッファ残り）
     while ((bufferLength() + command.length() + 1) <= BUFFERLENGTH
            && m_fileCommandIndex < m_currentModel->rowCount() - 1
            && !(!m_commands.isEmpty() && GcodePreprocessorUtils::removeComment(m_commands.last().command).contains(QRegExp("M0*2|M30")))) {
@@ -2347,6 +2349,7 @@ void frmMain::updateParser()
     qDebug() << "Update parser time: " << time.elapsed();
 }
 
+//右下の飛行機のようなcommand sendボタンを押したときの処理
 void frmMain::on_cmdCommandSend_clicked()
 {
     QString command = ui->cboCommand->currentText();
@@ -2777,12 +2780,15 @@ void frmMain::on_grpUserCommands_toggled(bool checked)
     ui->widgetUserCommands->setVisible(checked);
 }
 
+//ほぼほぼキー入力があった場合の処理が書いてある場所
 bool frmMain::eventFilter(QObject *obj, QEvent *event)
 {
     // Main form events
     if (obj == this || obj == ui->tblProgram || obj == ui->cboJogStep || obj == ui->cboJogFeed) {
 
-        // Jog on keyboard control
+        // Jog on keyboard control m_processingFileは ロードしたG-CODEを実行中ならtrue 実行してない時はfalse
+        //押したときと離したときで別の動作をさせる。
+        //直接関数を呼ばず、あらかじめUIにあるボタンをクリックした、離した、というシグナルを送る。
         if (!m_processingFile && ui->chkKeyboardControl->isChecked() &&
                 (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease)
                 && !static_cast<QKeyEvent*>(event)->isAutoRepeat()) {
@@ -2817,6 +2823,8 @@ bool frmMain::eventFilter(QObject *obj, QEvent *event)
                 if (!ui->chkKeyboardControl->isChecked()) ui->cboCommand->setFocus();
             }
 
+            //G-CODE実行中でなく、キーボードコントロールがチェックされているときだけ、以下のキーが押されたら。。。。
+            //こちらは関数を直接呼んでいるパターン
             if (!m_processingFile && ui->chkKeyboardControl->isChecked()) {
                 if (keyEvent->key() == Qt::Key_7) {
                     ui->cboJogStep->setCurrentPrevious();
@@ -2836,7 +2844,9 @@ bool frmMain::eventFilter(QObject *obj, QEvent *event)
                     ui->slbSpindle->setSliderPosition(ui->slbSpindle->sliderPosition() - 1);
                 }
             }
-			if (m_processingFile) {
+            
+            //G-CODE実行中のみ有効
+            if (m_processingFile) {
 
                 if (keyEvent->key() == Qt::Key_F1) {
                         ui->slbFeedOverride->setSliderPosition(ui->slbFeedOverride->sliderPosition() - 10);
@@ -2877,7 +2887,9 @@ bool frmMain::eventFilter(QObject *obj, QEvent *event)
                 if (keyEvent->key() == Qt::Key_F12) {
                         ui->slbSpindleOverride->setSliderPosition(ui->slbSpindleOverride->sliderPosition() + 10);
                     }
-			}
+            }
+
+
             if (obj == ui->tblProgram && m_processingFile) {
                 if (keyEvent->key() == Qt::Key_PageDown || keyEvent->key() == Qt::Key_PageUp
                             || keyEvent->key() == Qt::Key_Down || keyEvent->key() == Qt::Key_Up) {
