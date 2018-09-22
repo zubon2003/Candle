@@ -10,9 +10,9 @@ Supported functions:
 
 Downloads:
 ----------
-* Windows: [candle_1.1.8.2.zip](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle%201.1.8.2-win32.zip)
+* Windows: [zCandle_1.1.8.2.zip](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle%201.1.8.2-win32.zip)
 
 Build requirements:
 ------------------
-Qt 5.7.0 with MinGW compiler
+Qt 5.7.1 with MinGW compiler
 
