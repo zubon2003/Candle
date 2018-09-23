@@ -27,9 +27,10 @@ Candleとの差異
 
 Downloads:
 ----------
-* Windows: [zCandle_1.1.8.2.zip](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle%201.1.8.2-win32.zip)
+* Windows: [zCandle_1.1.8.2.zip](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle%201.1.8.2-win32.zip)  
+* Linux(32Bit): [zCandle 1.1.8.1.tar.gz](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle 1.1.8.1.tar.gz)
 
 Build requirements:
 ------------------
-Qt 5.4.2 with MinGW compiler
-
+Qt 5.4.2 with MinGW compiler(Win)
+Qt 5.4.2 with Gcc(Linux)
