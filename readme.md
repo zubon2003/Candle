@@ -28,7 +28,7 @@ Candleとの差異
 Downloads:
 ----------
 * Windows: [zCandle_1.1.8.2.zip](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle%201.1.8.2-win32.zip)  
-* Linux(32Bit): [zCandle_1.1.8.1.tar.gz](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle_1.1.8.1.tar.gz)
+* Linux(32Bit): [zCandle_1.1.8.2.tar.gz](https://github.com/zubon2003/zCandle/blob/grbl_1_1/zCandle_1.1.8.2.tar.gz)
 
 Build requirements:
 ------------------
