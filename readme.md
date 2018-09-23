@@ -32,5 +32,5 @@ Downloads:
 
 Build requirements:
 ------------------
-Qt 5.4.2 with MinGW compiler(Win)
+Qt 5.4.2 with MinGW compiler(Win)  
 Qt 5.4.2 with Gcc(Linux)
